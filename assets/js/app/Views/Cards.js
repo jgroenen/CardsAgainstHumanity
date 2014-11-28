@@ -11,6 +11,7 @@ define([
             "click .black": "selectQuestion",
             "click .question": "discardQuestion",
             "click .overview": "selectAnswer",
+            "click .button-add-second-card": "addSecondAnswer",
             "click .closed": "openAnswer",
             "click .open": "discardAnswer"
         },
@@ -22,6 +23,7 @@ define([
             this.questionsIndex = 0;
             this.answersIndex = 9;
             this.selected = null;
+            this.secondSelected = null;
             this.status = null;
             this.render();
         },
@@ -43,12 +45,25 @@ define([
         },
         
         selectAnswer: function (e) {
-            this.selected = $(e.currentTarget).data("index");
-            this.status = "closed";
+            if (this.selected === null) {
+                this.selected = $(e.currentTarget).data("index");
+                this.status = "closed";
+            } else {
+                this.secondSelected = $(e.currentTarget).data("index");
+                this.status = "closed_two";
+            }
             this.render();
         },
         
-        openAnswer: function () {
+        addSecondAnswer: function () {
+            this.status = null;
+            this.render();
+        },
+        
+        openAnswer: function (e) {
+            if ($(e.target).hasClass("button-add-second-card")) {
+                return;
+            }
             this.status = "open";
             this.render();
         },
@@ -57,6 +72,10 @@ define([
             this.status = null;
             this.hand[this.selected] = this.answers.at(++this.answersIndex);
             this.selected = null;
+            if (this.secondSelected !== null) {
+                this.hand[this.secondSelected] = this.answers.at(++this.answersIndex);
+                this.secondSelected = null;
+            }
             this.render();
         }
     });

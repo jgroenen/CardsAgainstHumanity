@@ -10,7 +10,13 @@
     case "closed":
 %>
     <section class="card closed">
-        <h2><%= hand[selected].get("answer") %></h2>
+        <section class="button-add-second-card"></section>
+    </section>
+<%
+        break;
+    case "closed_two":
+%>
+    <section class="card closed">
     </section>
 <%
         break;
@@ -18,6 +24,10 @@
 %>
     <section class="card open">
         <h2><%= hand[selected].get("answer") %></h2>
+        <% if (secondSelected !== null) { %>
+            <hr>
+            <h2><%= hand[secondSelected].get("answer") %></h2>
+        <% } %>
     </section>
 <%
         break;
