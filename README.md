@@ -10,6 +10,6 @@ Checkout the Mobile Web App on http://www.p1x.nl
 To do
 -----
 
-1) Add two card answering
-2) Add scoring
-3) Connect to cards API
+1) Add scoring
+
+2) Connect to cards API
